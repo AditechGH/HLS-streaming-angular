@@ -1,18 +1,40 @@
-<div>
-  <button (click)="home()">home</button>
-  <h1>{{stream?.title}}</h1>
-</div>
-<div id="video-container">
-  <video (keyup.Space)= "toggle()" #video autoplay class="videoCentered"></video>
-  <canvas id="bufferedCanvas" width="720" height="7" class="videoCentered" (click)="onClickBufferedRange($event);"></canvas>
-  <div id="controls">
-    <span (click)="toggle()">
-      <i class="material-icons">{{status}}</i>
-    </span>
-    <span (click)="adjustTime('-')"><i class="material-icons">replay_10</i></span>
-    <span (click)="adjustTime('+')"><i class="material-icons">forward_10</i></span>
-    <span (click)="next()"><i class="material-icons">skip_next</i></span>
-    <span id="timer">{{currentTime}} / {{duration}}</span>
+<div id="container">
+  <div id="video-info">
+    <div id="video-container">
+      <div [hidden]="loaded" id="video-spinner">
+        <mat-spinner diameter='50' color="light"></mat-spinner>
+      </div>
+      <video (keyup.Space)= "toggle()"  #video autoplay class="videoCentered"></video>
+      <canvas id="bufferedCanvas" width="720" height="7" class="videoCentered" (click)="onClickBufferedRange($event);"></canvas>
+      <div id="controls">
+        <span (click)="toggle()">
+          <i class="material-icons">{{status}}</i>
+        </span>
+        <span (click)="adjustTime('-')"><i class="material-icons">replay_10</i></span>
+        <span (click)="adjustTime('+')"><i class="material-icons">forward_10</i></span>
+        <span (click)="next()"><i class="material-icons">skip_next</i></span>
+        <span id="timer">{{currentTime}} / {{duration}}</span>
+      </div>
+    </div>
+    <div id="video-details">
+          <h2>{{stream?.title}}</h2>
+          <p>{{stream?.description}}</p>
+      </div>
   </div>
+  <div id="playlist">
+    <mat-list>
+      <div mat-subheader>
+        <h2>Playlist</h2>
+      </div>
+      <mat-divider></mat-divider>
+      <mat-selection-list #playlist [multiple]="false">
+        <mat-list-option *ngFor="let stream of streams;let i = index" [selected]="i == index" (focus)="selectItem(i)">
+          <mat-icon mat-list-icon>play_circle_outline</mat-icon>
+          <div mat-line>{{ stream.title }}</div>
+        </mat-list-option>
+      </mat-selection-list>
+    </mat-list>
 
+  </div>
 </div>
+

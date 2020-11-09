@@ -27,6 +27,7 @@ export class StreamComponent implements OnInit {
   bufferingIdx = -1;
   events: any;
   tracks = [];
+  loaded: boolean;
 
   constructor(
     private route: ActivatedRoute,
@@ -99,6 +100,7 @@ export class StreamComponent implements OnInit {
       this.hls.loadSource(stream.src);
 
       this.hls.on(HLS.Events.MEDIA_ATTACHED, () => {
+        this.loaded = false;
         this.bufferingIdx = -1;
         this.events.video.push({
           time: performance.now() - this.events.t0,
@@ -107,6 +109,7 @@ export class StreamComponent implements OnInit {
       });
 
       this.hls.on(HLS.Events.FRAG_BUFFERED, (eventName: any, data: any) => {
+        this.loaded = true;
         const event = {
           type: data.frag.type + ' fragment',
           id: data.frag.level,
@@ -263,18 +266,20 @@ export class StreamComponent implements OnInit {
     this.video.nativeElement.addEventListener('playing', (evt: any) => {
       this.lastStartPosition = evt.target.currentTime;
     });
-    // this.video.nativeElement.addEventListener('mouseover', (evt: any) => {
-    //   const canvas = document.querySelector('#bufferedCanvas') as HTMLCanvasElement;
-    //   const controls = document.querySelector('#controls') as HTMLDivElement;
-    //   canvas.style.display = 'block';
-    //   controls.style.display = 'block';
-    // });
-    // this.video.nativeElement.addEventListener('mouseout', (evt: any) => {
-    //   const canvas = document.querySelector('#bufferedCanvas') as HTMLCanvasElement;
-    //   const controls = document.querySelector('#controls') as HTMLDivElement;
-    //   canvas.style.display = 'none';
-    //   controls.style.display = 'none';
-    // });
+
+    const videoContainer = document.querySelector('#video-container') as HTMLDivElement;
+    videoContainer.addEventListener('mouseover', (evt: any) => {
+      const canvas = document.querySelector('#bufferedCanvas') as HTMLCanvasElement;
+      const controls = document.querySelector('#controls') as HTMLDivElement;
+      canvas.style.display = 'block';
+      controls.style.display = 'block';
+    });
+    videoContainer.addEventListener('mouseout', (evt: any) => {
+      const canvas = document.querySelector('#bufferedCanvas') as HTMLCanvasElement;
+      const controls = document.querySelector('#controls') as HTMLDivElement;
+      canvas.style.display = 'none';
+      controls.style.display = 'none';
+    });
   }
 
   toggle(): void{
@@ -300,18 +305,22 @@ export class StreamComponent implements OnInit {
     if (this.index > this.streams.length){
       this.index = 0;
     }
-    clearInterval(this.hls.bufferTimer);
-    clearInterval(this.interval);
-    setTimeout( () => {
-      this.router.navigate(['/stream'], { queryParams: { idx: btoa(this.index.toString()) } });
-    }, 500);
+    this.selectItem(this.index);
+  }
+
+  selectItem(idx: number): void{
+    this.navigate('/stream', { queryParams: { idx: btoa(idx.toString()) } });
   }
 
   home(): void{
+    this.navigate('/home');
+  }
+
+  navigate(page: string, params = {}): void{
     clearInterval(this.hls.bufferTimer);
     clearInterval(this.interval);
     setTimeout( () => {
-      this.router.navigate(['/home']);
+      this.router.navigate([page], params);
     }, 500);
   }
 
@@ -416,7 +425,7 @@ export class StreamComponent implements OnInit {
   onClickBufferedRange(event: any): void{
     const canvas = document.querySelector('#bufferedCanvas') as HTMLCanvasElement;
     const target = (event.clientX - canvas.offsetLeft) / canvas.width * this.video.nativeElement.duration;
-    this.video.nativeElement.currentTime = target;
+    this.video.nativeElement.currentTime = target - 10;
   }
 
   format(time: number): string {

@@ -1,11 +1,10 @@
-<div class="stream-list-container">
-  <p>Available Streams: </p>
-      <div>
-      <div *ngFor="let stream of streams;let i = index">
-        <button (click)="setSelectedStream(i)">
-          <i class="material-icons">play_arrow</i>
-          {{ stream.title }}
-        </button>
-      </div>
-    </div>
-</div>
+<mat-grid-list cols="4">
+  <mat-grid-tile *ngFor="let stream of streams;let i = index">
+    <mat-card (click)="setSelectedStream(i)" class="example-card">
+      <img mat-card-image [src]="stream.thumbnail">
+      <mat-card-content>
+        <h5>{{ stream.title }}</h5>
+      </mat-card-content>
+    </mat-card>
+  </mat-grid-tile>
+</mat-grid-list>

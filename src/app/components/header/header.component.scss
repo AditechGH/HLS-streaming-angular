@@ -1,0 +1,14 @@
+.spacer {
+  flex: 1 1 auto;
+}
+mat-toolbar{
+  background-color: var(--black);
+  color: var(--white);
+}
+.title{
+  color: var(--primary);
+  cursor: pointer;
+}
+button{
+  color: var(--white);;
+}

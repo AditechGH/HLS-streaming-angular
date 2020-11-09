@@ -1,37 +1,69 @@
+#container{
+  width: 100%;
+  display: flex;
+}
+#video-info{
+  width: 60%;
+  margin-left: 10px;
+  margin-top: 20px;
+}
 #video-container{
-  width: 90%;
-  display: block;
-  margin: 0 auto;
+  width: 100%;
+  background-color: var(--black);
   position: relative;
 }
-video.videoCentered {
-  width: 100%;
+#video-spinner{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+#video-details{
+  margin-top: 15px;
+}
+#playlist{
+  margin-top: 20px;
+  width: 35%;
+  margin-left: 10px;
+  padding-left: 10px;
+}
+.videoCentered{
   margin-left: auto;
   margin-right: auto;
   display: block
 }
+video.videoCentered {
+  height: 100%;
+  width: 100%;
+  min-height: 100%;
+  max-height: 100%;
+}
 canvas.videoCentered {
   position: absolute;
   bottom: 55px;
-  left: 50%;
   cursor: pointer;
-  transform: translateX(-50%);
-  // display: none;
+  left: 15px;
 }
 div#controls{
   position: absolute;
   bottom: 10px;
-  // display: none;
 }
-
 div#controls span{
   cursor: pointer;
-  color: white;
+  color: var(--white);;
   padding-left: 20px;
 }
-
 span#timer{
   position: absolute;
   width: 300px;
   bottom: 7px;
+}
+mat-list div{
+  color: var(--white);
+}
+.mat-list-icon {
+  color: var(--white);;
+}
+.mat-list-single-selected-option {
+  background: var(--black) !important;
 }
