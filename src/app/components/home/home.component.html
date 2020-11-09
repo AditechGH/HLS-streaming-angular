@@ -1,0 +1,11 @@
+<div class="stream-list-container">
+  <p>Available Streams: </p>
+      <div>
+      <div *ngFor="let stream of streams;let i = index">
+        <button (click)="setSelectedStream(i)">
+          <i class="material-icons">play_arrow</i>
+          {{ stream.title }}
+        </button>
+      </div>
+    </div>
+</div>

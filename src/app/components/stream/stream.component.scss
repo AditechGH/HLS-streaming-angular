@@ -1,0 +1,37 @@
+#video-container{
+  width: 90%;
+  display: block;
+  margin: 0 auto;
+  position: relative;
+}
+video.videoCentered {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  display: block
+}
+canvas.videoCentered {
+  position: absolute;
+  bottom: 55px;
+  left: 50%;
+  cursor: pointer;
+  transform: translateX(-50%);
+  // display: none;
+}
+div#controls{
+  position: absolute;
+  bottom: 10px;
+  // display: none;
+}
+
+div#controls span{
+  cursor: pointer;
+  color: white;
+  padding-left: 20px;
+}
+
+span#timer{
+  position: absolute;
+  width: 300px;
+  bottom: 7px;
+}

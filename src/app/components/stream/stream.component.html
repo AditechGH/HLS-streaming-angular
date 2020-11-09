@@ -1,0 +1,18 @@
+<div>
+  <button (click)="home()">home</button>
+  <h1>{{stream?.title}}</h1>
+</div>
+<div id="video-container">
+  <video (keyup.Space)= "toggle()" #video autoplay class="videoCentered"></video>
+  <canvas id="bufferedCanvas" width="720" height="7" class="videoCentered" (click)="onClickBufferedRange($event);"></canvas>
+  <div id="controls">
+    <span (click)="toggle()">
+      <i class="material-icons">{{status}}</i>
+    </span>
+    <span (click)="adjustTime('-')"><i class="material-icons">replay_10</i></span>
+    <span (click)="adjustTime('+')"><i class="material-icons">forward_10</i></span>
+    <span (click)="next()"><i class="material-icons">skip_next</i></span>
+    <span id="timer">{{currentTime}} / {{duration}}</span>
+  </div>
+
+</div>
