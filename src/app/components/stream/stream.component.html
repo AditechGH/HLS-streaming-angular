@@ -4,10 +4,10 @@
       <div [hidden]="loaded" id="video-spinner">
         <mat-spinner diameter='50' color="light"></mat-spinner>
       </div>
-      <video (keyup.Space)= "toggle()"  #video autoplay class="videoCentered"></video>
+      <video (keyup.Space)= "playPause()"  #video autoplay class="videoCentered"></video>
       <canvas id="bufferedCanvas" width="720" height="7" class="videoCentered" (click)="onClickBufferedRange($event);"></canvas>
       <div id="controls">
-        <span (click)="toggle()">
+        <span (click)="playPause()">
           <i class="material-icons">{{status}}</i>
         </span>
         <span (click)="adjustTime('-')"><i class="material-icons">replay_10</i></span>

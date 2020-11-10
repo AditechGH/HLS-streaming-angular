@@ -3,6 +3,4 @@ export interface Stream {
   title: string;
   thumbnail?: string;
   description?: string;
-  levels?: any;
-  playbackLevel?: any;
 }

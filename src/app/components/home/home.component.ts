@@ -6,13 +6,11 @@ import { Stream } from '../../models/stream';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss']
+  styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
   public streams: Stream[];
-  constructor(
-    private router: Router,
-    private api: ApiService) { }
+  constructor(private router: Router, private api: ApiService) {}
 
   ngOnInit(): void {
     this.getItems();
